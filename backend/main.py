@@ -22,6 +22,7 @@ from domains.market import (
     get_market_data,
     get_price_trend_series,
     get_available_filters,
+    get_market_records,
     enrich_market_data,
     compute_trade_recommendation,
     to_market_summary,
@@ -157,6 +158,21 @@ async def market_intelligence(
         return summary
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Market intelligence failed: {str(e)}")
+
+
+# ── Market Records (paginated, for data table) ──
+@app.get("/api/market/records")
+async def market_records(
+    region:    str = Query("Kerala_Kottayam", description="Region filename"),
+    commodity: str = Query("Banana",          description="Commodity name"),
+    page:      int = Query(1,                 description="Page number", ge=1),
+    page_size: int = Query(50,                description="Records per page", ge=10, le=200),
+):
+    """Paginated individual records for the data table."""
+    try:
+        return get_market_records(region, commodity, page, page_size)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Market records fetch failed: {str(e)}")
 
 
 # ── Legacy: raw market data ──

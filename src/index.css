@@ -2115,3 +2115,180 @@ body {
 .mi-retry-btn:hover {
   background: rgba(239, 68, 68, 0.1);
 }
+
+/* ══════════════════════════════════════════
+   MARKET INTELLIGENCE — DATA RECORDS TABLE
+══════════════════════════════════════════ */
+.mi-records-section {
+  margin-top: var(--space-xl);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.mi-records-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.mi-records-title {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.mi-records-count {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.mi-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mi-records-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.mi-records-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.mi-records-table th {
+  text-align: left;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  padding: 12px 16px;
+  background: var(--bg-elevated);
+  border-bottom: 2px solid var(--border-default);
+}
+
+.mi-th-num,
+.mi-td-num {
+  text-align: right;
+}
+
+.mi-records-table td {
+  padding: 10px 16px;
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.mi-row-even {
+  background: transparent;
+}
+
+.mi-row-odd {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.mi-records-table tbody tr:hover {
+  background: rgba(59, 130, 246, 0.06);
+}
+
+.mi-td-modal {
+  font-weight: 700;
+  color: var(--accent-blue);
+}
+
+/* ── Pagination ── */
+.mi-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+}
+
+.mi-page-btn {
+  background: transparent;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  padding: 8px 20px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: var(--font-family);
+}
+
+.mi-page-btn:hover:not(:disabled) {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  background: var(--accent-blue-glow);
+}
+
+.mi-page-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.mi-page-info {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.mi-page-info strong {
+  color: var(--text-primary);
+}
+
+/* ── Loading & Empty States ── */
+.mi-records-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-2xl);
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.mi-records-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-default);
+  border-top-color: var(--accent-blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.mi-records-empty {
+  text-align: center;
+  padding: var(--space-2xl);
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .mi-records-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mi-pagination {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+}

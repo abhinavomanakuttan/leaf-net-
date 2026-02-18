@@ -3,6 +3,7 @@ from .market_analyze import (
     get_market_data,
     get_price_trend_series,
     get_available_filters,
+    get_market_records,
     resolve_coords_for_state,
 )
 from .market_signals import (
@@ -17,6 +18,7 @@ __all__ = [
     "get_market_data",
     "get_price_trend_series",
     "get_available_filters",
+    "get_market_records",
     "resolve_coords_for_state",
     "compute_buyer_signal",
     "compute_price_momentum",

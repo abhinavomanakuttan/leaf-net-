@@ -283,6 +283,69 @@ async def get_price_trend_series(
         return []
 
 
+def get_market_records(
+    region: str,
+    commodity: str,
+    page: int = 1,
+    page_size: int = 50,
+) -> dict:
+    """
+    Return paginated individual records from the CSV for a given region+commodity.
+    Each record has: State, District, Market, Commodity, Variety, Grade,
+    Arrival_Date, Min_Price, Max_Price, Modal_Price, Commodity_Code.
+    """
+    try:
+        filename = f"{region}.csv"
+        df = _load_csv(filename)
+
+        if COL_COMMODITY in df.columns:
+            df = df[df[COL_COMMODITY].str.lower() == commodity.lower()]
+
+        if df.empty:
+            return {"records": [], "total": 0, "page": page, "page_size": page_size}
+
+        # Sort by date descending (most recent first)
+        df = df.sort_values(COL_DATE, ascending=False)
+
+        total = len(df)
+
+        # Paginate
+        start = (page - 1) * page_size
+        end = start + page_size
+        page_df = df.iloc[start:end]
+
+        records = []
+        for _, row in page_df.iterrows():
+            arrival_date = row.get(COL_DATE)
+            if pd.notna(arrival_date):
+                arrival_date = arrival_date.strftime("%d/%m/%Y")
+            else:
+                arrival_date = "—"
+
+            records.append({
+                "state": str(row.get(COL_STATE, "—")),
+                "district": str(row.get(COL_DISTRICT, "—")),
+                "market": str(row.get(COL_MARKET, "—")),
+                "commodity": str(row.get(COL_COMMODITY, "—")),
+                "variety": str(row.get(COL_VARIETY, "Other")),
+                "grade": str(row.get(COL_GRADE, "—")),
+                "arrival_date": arrival_date,
+                "min_price": float(row.get(COL_MIN, 0) or 0),
+                "max_price": float(row.get(COL_MAX, 0) or 0),
+                "modal_price": float(row.get(COL_MODAL, 0) or 0),
+                "commodity_code": str(row.get("Commodity_Code", "—")),
+            })
+
+        return {
+            "records": records,
+            "total": total,
+            "page": page,
+            "page_size": page_size,
+        }
+    except Exception as e:
+        return {"records": [], "total": 0, "page": page, "page_size": page_size, "error": str(e)}
+
+
 def _error_result(region: str, commodity: str, reason: str) -> dict:
     return {
         "commodity":    commodity,
