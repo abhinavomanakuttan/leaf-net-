@@ -34,11 +34,36 @@ class SatelliteResult(BaseModel):
     last_updated: str
 
 
+# ── Market Intelligence Agent ──
+class MarketResult(BaseModel):
+    commodity: str
+    mandi_price: float
+    prev_price: float
+    arrival: float
+    trend: str
+    date: str
+    source: str
+    last_updated: str
+    status: str
+    error: Optional[str] = None
+
+
 # ── Orchestration ──
 class AgentInput(BaseModel):
+    # Pre-fetched agent results (optional — orchestrator self-fetches if missing)
     vision: Optional[dict] = None
     climate: Optional[dict] = None
     satellite: Optional[dict] = None
+    market: Optional[dict] = None
+    # Context params for self-fetching
+    state_id: Optional[str] = "Maharashtra"
+    commodity_id: Optional[str] = "Tomato"
+    market_id: Optional[str] = ""
+    # New CSV-based context
+    region: Optional[str] = "Kerala_Kottayam"
+    commodity: Optional[str] = "Banana"
+    lat: Optional[float] = None
+    lon: Optional[float] = None
 
 
 class OrchestrationResult(BaseModel):

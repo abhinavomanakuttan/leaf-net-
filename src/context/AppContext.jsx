@@ -4,8 +4,13 @@ const AppContext = createContext();
 
 const initialState = {
     // Location
-    location: { lat: 28.6139, lon: 77.209 }, // Default: Delhi
-    locationName: 'New Delhi, India',
+    location: { lat: 20.0, lon: 73.8 }, // Default: Nashik
+    locationName: 'Nashik, Maharashtra',
+
+    // Global market filter context (text names for data.gov.in API)
+    // Global market filter context (CSV-based)
+    regionId: 'Kerala_Kottayam',
+    commodityId: 'Banana',
 
     // Agent results
     visionResult: null,
@@ -42,6 +47,15 @@ function appReducer(state, action) {
                 orchestrationError: null,
             };
 
+        case 'SET_FILTER':
+            return {
+                ...state,
+                regionId: action.payload.regionId ?? state.regionId,
+                commodityId: action.payload.commodityId ?? state.commodityId,
+                // Clear orchestration so Home Dashboard re-fetches
+                orchestrationResult: null,
+                orchestrationError: null,
+            };
 
         case 'VISION_LOADING': return { ...state, visionLoading: true, visionError: null };
         case 'VISION_SUCCESS': return { ...state, visionLoading: false, visionResult: action.payload };

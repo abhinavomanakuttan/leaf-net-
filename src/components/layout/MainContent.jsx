@@ -1,3 +1,5 @@
+
+
 export default function MainContent({ title, subtitle, children }) {
     return (
         <div className="main-content">
@@ -7,6 +9,7 @@ export default function MainContent({ title, subtitle, children }) {
                     <p>{subtitle}</p>
                 </div>
                 <div className="main-header-right">
+
                     <div className="header-badge">
                         <span className="dot"></span>
                         Live Monitoring

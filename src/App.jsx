@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AppProvider, useAppState } from './context/AppContext';
+import { AppProvider } from './context/AppContext';
 import Sidebar from './components/layout/Sidebar';
 import MainContent from './components/layout/MainContent';
 import LocationBar from './components/ui/LocationBar';
@@ -8,6 +8,8 @@ import ClimateAgentPanel from './components/panels/ClimateAgentPanel';
 import SatelliteAgentPanel from './components/panels/SatelliteAgentPanel';
 import OrchestrationPanel from './components/panels/OrchestrationPanel';
 import RecommendationPanel from './components/panels/RecommendationPanel';
+import HomeDashboard from './components/panels/HomeDashboard';
+import MarketIntelligence from './components/panels/MarketIntelligence';
 
 const pageConfig = {
   home: { title: 'Home Dashboard', subtitle: 'Welcome to AgriIntel — your smart farming command center' },
@@ -20,9 +22,6 @@ const pageConfig = {
   'roi-calculator': { title: 'ROI Calculator', subtitle: 'Estimate returns on your farming investments' },
   'econ-dashboard': { title: 'Econ Dashboard', subtitle: 'Economic indicators & farm financial health' },
 };
-
-// Pages that are fully functional
-const LIVE_PAGES = new Set(['dashboard']);
 
 function ComingSoonView({ title }) {
   return (
@@ -64,9 +63,13 @@ function AppContent() {
     <div className="app-layout">
       <Sidebar activeNav={activeNav} onNavChange={setActiveNav} />
       <MainContent title={config.title} subtitle={config.subtitle}>
-        {activeNav === 'dashboard'
-          ? <OutbreakAnalysisView />
-          : <ComingSoonView title={config.title} />
+        {activeNav === 'home'
+          ? <HomeDashboard onNavigate={setActiveNav} />
+          : activeNav === 'dashboard'
+            ? <OutbreakAnalysisView />
+            : activeNav === 'market'
+              ? <MarketIntelligence />
+              : <ComingSoonView title={config.title} />
         }
       </MainContent>
     </div>
