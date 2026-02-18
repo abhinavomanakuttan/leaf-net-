@@ -76,3 +76,15 @@ class OrchestrationResult(BaseModel):
     chemical_advisory: dict
     conflicts: list[str]
     raw_llm_reasoning: Optional[str] = None
+
+
+# ── Growth Planner ──
+class GrowthPlannerInput(BaseModel):
+    experience_level: str = "beginner"       # beginner | intermediate | experienced
+    land_size: str = "1-2 acres"
+    available_capital: str = "Under ₹50,000"
+    risk_appetite: str = "conservative"      # conservative | moderate | aggressive
+    irrigation: bool = False
+    cold_storage: bool = False
+    region: Optional[str] = None
+    primary_crop: Optional[str] = None

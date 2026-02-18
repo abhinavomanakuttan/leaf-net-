@@ -177,9 +177,8 @@ async def run_orchestration(agent_data: dict) -> dict:
 
     # ── Attach raw agent data to response ──
     result["context"] = {
-        "state_id":     state_id,
-        "commodity_id": commodity_id,
-        "market_id":    market_id,
+        "region":       region,
+        "commodity":    commodity,
         "lat":          lat,
         "lon":          lon,
     }

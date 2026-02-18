@@ -7,6 +7,7 @@ Endpoints:
   GET  /api/satellite/health        — Vegetation health index
   POST /api/orchestrate             — Multi-agent synthesis via Groq LLM
   GET  /api/market/intelligence     — Mandi price + signals + recommendation
+  POST /api/growth/roadmap          — AI-powered farmer profit roadmap
   GET  /api/health                  — Health check
 """
 
@@ -18,6 +19,7 @@ from agents.vision_agent import analyze_image
 from agents.climate_agent import get_climate_risk
 from agents.satellite_agent import get_satellite_health
 from agents.orchestrator import run_orchestration
+from agents.growth_planner import generate_growth_roadmap
 from domains.market import (
     get_market_data,
     get_price_trend_series,
@@ -29,7 +31,7 @@ from domains.market import (
     to_chart_series,
     resolve_coords_for_state,
 )
-from models.schemas import AgentInput
+from models.schemas import AgentInput, GrowthPlannerInput
 
 app = FastAPI(
     title="Disease Intelligence Platform API",
@@ -188,4 +190,14 @@ async def market_data(
         raise HTTPException(status_code=500, detail=f"Market data fetch failed: {str(e)}")
 
 
-
+# ── Farmer Growth Planner ──
+@app.post("/api/growth/roadmap")
+async def growth_roadmap(profile: GrowthPlannerInput):
+    """Generate an AI-powered profit roadmap for a farmer."""
+    try:
+        result = await generate_growth_roadmap(profile.model_dump())
+        return result
+    except ValueError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Growth planner failed: {str(e)}")

@@ -10,13 +10,12 @@ import OrchestrationPanel from './components/panels/OrchestrationPanel';
 import RecommendationPanel from './components/panels/RecommendationPanel';
 import HomeDashboard from './components/panels/HomeDashboard';
 import MarketIntelligence from './components/panels/MarketIntelligence';
-import FarmerGrowthPlanner from './components/panels/FarmerGrowthPlanner';
 
 const pageConfig = {
   home: { title: 'Home Dashboard', subtitle: 'Welcome to AgriIntel — your smart farming command center' },
   market: { title: 'Market Intelligence', subtitle: 'Real-time crop pricing & market trend analysis' },
   community: { title: 'Community', subtitle: 'Connect with farmers, experts & agronomists' },
-  'dev-planner': { title: 'Farmer Growth Planner', subtitle: 'AI-powered profit roadmap & government scheme advisor' },
+  'dev-planner': { title: 'Dev Planner', subtitle: 'Plan and track your development cycles' },
   'ai-assistant': { title: 'AI Assistant', subtitle: 'Chat with your intelligent farming advisor' },
   dashboard: { title: 'Outbreak Analysis', subtitle: 'Real-time multi-agent disease detection & monitoring' },
   'crop-planning': { title: 'Crop Planning', subtitle: 'Smart crop rotation & seasonal planning' },
@@ -70,9 +69,7 @@ function AppContent() {
             ? <OutbreakAnalysisView />
             : activeNav === 'market'
               ? <MarketIntelligence />
-              : activeNav === 'dev-planner'
-                ? <FarmerGrowthPlanner />
-                : <ComingSoonView title={config.title} />
+              : <ComingSoonView title={config.title} />
         }
       </MainContent>
     </div>
